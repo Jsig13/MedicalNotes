@@ -308,14 +308,14 @@ export default function EncounterDetailPage() {
   const fullNoteText = noteSections.map((s) => `${s.title}\n${s.content}`).join("\n\n");
 
   const dictCategoryColors: Record<string, { bg: string; text: string; border: string }> = {
-    medical: { bg: "bg-blue-50", text: "text-blue-600", border: "border-blue-200" },
-    military: { bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" },
-    names: { bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200" },
-    custom: { bg: "bg-slate-100", text: "text-slate-600", border: "border-slate-200" },
+    medical: { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/20" },
+    military: { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/30" },
+    names: { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/30" },
+    custom: { bg: "bg-slate-500/10", text: "text-slate-400", border: "border-slate-700/50" },
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 animate-fade-in">
       {/* Header */}
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="sm" onClick={() => router.push("/encounters")}>
@@ -328,7 +328,7 @@ export default function EncounterDetailPage() {
               {sc?.label || encounter.status}
             </Badge>
           </div>
-          <div className="flex gap-4 text-xs text-slate-500 mt-1">
+          <div className="flex gap-4 text-xs text-slate-400 mt-1">
             <span className="flex items-center gap-1">
               <Clock className="w-3 h-3" /> {fmtDateTime(encounter.date_of_service)}
             </span>
@@ -337,7 +337,7 @@ export default function EncounterDetailPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <label className="text-xs font-medium text-slate-500">Template:</label>
+          <label className="text-xs font-medium text-slate-400">Template:</label>
           <Select
             className="w-56"
             value={selectedTemplateId}
@@ -365,16 +365,16 @@ export default function EncounterDetailPage() {
           </Button>
         )}
         {/* Flow indicator */}
-        <div className="flex items-center gap-2 text-xs text-slate-500">
-          <span className={`px-2 py-0.5 rounded-full font-medium ${tab === "transcript" ? "bg-blue-600 text-white" : "bg-slate-200 text-slate-600"}`}>
+        <div className="flex items-center gap-2 text-xs text-slate-400">
+          <span className={`px-2 py-0.5 rounded-full font-medium ${tab === "transcript" ? "bg-blue-600 text-white" : "bg-slate-700/50 text-slate-400"}`}>
             1. Record
           </span>
           <ArrowRight className="w-3 h-3" />
-          <span className={`px-2 py-0.5 rounded-full font-medium ${tab === "scrub" ? "bg-amber-500 text-white" : "bg-slate-200 text-slate-600"}`}>
+          <span className={`px-2 py-0.5 rounded-full font-medium ${tab === "scrub" ? "bg-amber-500 text-white" : "bg-slate-700/50 text-slate-400"}`}>
             2. Scrub
           </span>
           <ArrowRight className="w-3 h-3" />
-          <span className={`px-2 py-0.5 rounded-full font-medium ${tab === "note" && note ? "bg-green-500 text-white" : "bg-slate-200 text-slate-600"}`}>
+          <span className={`px-2 py-0.5 rounded-full font-medium ${tab === "note" && note ? "bg-green-500 text-white" : "bg-slate-700/50 text-slate-400"}`}>
             3. Note
           </span>
         </div>
@@ -387,7 +387,7 @@ export default function EncounterDetailPage() {
       </Card>
 
       {/* Tab Bar */}
-      <div className="flex gap-1 border-b-2 border-slate-200">
+      <div className="flex gap-1 border-b-2 border-slate-700/50">
         {([
           { id: "transcript" as Tab, label: "Live Transcript" },
           { id: "scrub" as Tab, label: `Scrub & Dictionary (${corrections.filter((c) => c.accepted).length} fixes)` },
@@ -399,8 +399,8 @@ export default function EncounterDetailPage() {
             onClick={() => setTab(t.id)}
             className={`px-4 py-2 text-sm font-medium border-b-2 -mb-[2px] transition-colors cursor-pointer ${
               tab === t.id
-                ? "text-blue-600 border-blue-600"
-                : "text-slate-500 border-transparent hover:text-slate-700"
+                ? "text-blue-400 border-blue-400"
+                : "text-slate-400 border-transparent hover:text-slate-200"
             }`}
           >
             {t.label}
@@ -414,7 +414,7 @@ export default function EncounterDetailPage() {
           <div className="flex justify-end">
             {segments.length > 0 && <CopyButton text={transcriptText} label="Copy Transcript" />}
           </div>
-          <Card className="p-5 min-h-[450px] max-h-[550px] overflow-auto bg-slate-50 flex flex-col gap-3">
+          <Card className="p-5 min-h-[450px] max-h-[550px] overflow-auto bg-slate-900/30 flex flex-col gap-3">
             {segments.length === 0 && !isRecording && (
               <div className="flex flex-col items-center justify-center h-full text-slate-400 py-20">
                 <Mic className="w-10 h-10 mb-3 opacity-50" />
@@ -430,7 +430,7 @@ export default function EncounterDetailPage() {
                 <div
                   className={`max-w-[75%] px-4 py-3 text-sm leading-relaxed shadow-sm ${
                     seg.speaker === "provider"
-                      ? "bg-white text-slate-900 border border-slate-200 rounded-tr-2xl rounded-br-2xl rounded-bl-2xl rounded-tl"
+                      ? "bg-slate-800/80 text-slate-200 border border-slate-700/50 rounded-tr-2xl rounded-br-2xl rounded-bl-2xl rounded-tl"
                       : "bg-blue-600 text-white rounded-tl-2xl rounded-bl-2xl rounded-br-2xl rounded-tr"
                   }`}
                 >
@@ -450,11 +450,11 @@ export default function EncounterDetailPage() {
             ))}
             {isRecording && (
               <div className="flex justify-start pr-16">
-                <div className="px-4 py-3 bg-white border border-slate-200 rounded-tr-2xl rounded-br-2xl rounded-bl-2xl rounded-tl text-sm text-slate-400 italic">
+                <div className="px-4 py-3 bg-slate-800/80 border border-slate-700/50 rounded-tr-2xl rounded-br-2xl rounded-bl-2xl rounded-tl text-sm text-slate-400 italic">
                   <span className="inline-flex gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-pulse" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-pulse [animation-delay:0.2s]" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-pulse [animation-delay:0.4s]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse [animation-delay:0.2s]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse [animation-delay:0.4s]" />
                   </span>
                   {" "}Listening...
                 </div>
@@ -468,12 +468,12 @@ export default function EncounterDetailPage() {
       {tab === "scrub" && (
         <div className="flex flex-col gap-4">
           {/* Scrub banner */}
-          <Card className="p-3 bg-amber-50 border-amber-200 flex justify-between items-center">
+          <Card className="p-3 bg-amber-500/10 border-amber-500/30 flex justify-between items-center">
             <div className="flex items-center gap-2">
-              <Pencil className="w-4 h-4 text-amber-700" />
+              <Pencil className="w-4 h-4 text-amber-300" />
               <div>
-                <div className="text-sm font-semibold text-amber-900">Transcript Scrub & Review</div>
-                <div className="text-xs text-amber-700">
+                <div className="text-sm font-semibold text-amber-200">Transcript Scrub & Review</div>
+                <div className="text-xs text-amber-300">
                   {corrections.filter((c) => c.accepted).length} corrections found
                   {personalFlags.filter((f) => f.flagged).length > 0 &&
                     ` · ${personalFlags.filter((f) => f.flagged).length} personal items flagged`}
@@ -523,8 +523,8 @@ export default function EncounterDetailPage() {
                       onClick={() => toggleCorrection(c.id, c.accepted)}
                       className={`p-3 rounded-lg border cursor-pointer transition-colors ${
                         c.accepted
-                          ? "border-green-200 bg-green-50"
-                          : "border-slate-200 bg-white"
+                          ? "border-green-500/30 bg-green-500/10"
+                          : "border-slate-700/50 bg-slate-800/50"
                       }`}
                     >
                       <div className="flex items-center gap-2 mb-1">
@@ -532,7 +532,7 @@ export default function EncounterDetailPage() {
                           className={`w-4.5 h-4.5 rounded flex-shrink-0 flex items-center justify-center ${
                             c.accepted
                               ? "bg-green-500 text-white"
-                              : "border-2 border-slate-300"
+                              : "border-2 border-slate-600"
                           }`}
                         >
                           {c.accepted && <Check className="w-3 h-3" />}
@@ -540,13 +540,13 @@ export default function EncounterDetailPage() {
                         <span className="text-sm text-red-500 line-through font-medium">
                           {c.original_text}
                         </span>
-                        <ArrowRight className="w-3 h-3 text-slate-400" />
-                        <span className="text-sm text-green-600 font-semibold">
+                        <ArrowRight className="w-3 h-3 text-slate-500" />
+                        <span className="text-sm text-green-400 font-semibold">
                           {c.corrected_text}
                         </span>
                       </div>
                       {c.context && (
-                        <div className="text-xs text-slate-500 pl-6 italic">{c.context}</div>
+                        <div className="text-xs text-slate-400 pl-6 italic">{c.context}</div>
                       )}
                     </div>
                   ))}
@@ -574,19 +574,19 @@ export default function EncounterDetailPage() {
                       key={f.id}
                       onClick={() => togglePersonalFlag(f.id, f.flagged)}
                       className={`p-3 rounded-lg border cursor-pointer ${
-                        f.flagged ? "border-red-200 bg-red-50" : "border-slate-200 bg-white"
+                        f.flagged ? "border-red-500/30 bg-red-500/10" : "border-slate-700/50 bg-slate-800/50"
                       }`}
                     >
                       <div className="flex items-center gap-2">
                         <div
                           className={`w-4.5 h-4.5 rounded flex-shrink-0 flex items-center justify-center ${
-                            f.flagged ? "bg-red-500 text-white" : "border-2 border-slate-300"
+                            f.flagged ? "bg-red-500 text-white" : "border-2 border-slate-600"
                           }`}
                         >
                           {f.flagged && <X className="w-3 h-3" />}
                         </div>
                         <span
-                          className={`text-sm ${f.flagged ? "text-slate-400 line-through" : ""}`}
+                          className={`text-sm ${f.flagged ? "text-slate-500 line-through" : ""}`}
                         >
                           &ldquo;{f.text_content}&rdquo;
                         </span>
@@ -618,7 +618,7 @@ export default function EncounterDetailPage() {
               </CardHeader>
 
               {showAddTerm && (
-                <div className="px-5 py-3 bg-slate-50 border-b border-slate-100">
+                <div className="px-5 py-3 bg-slate-900/30 border-b border-slate-700/30">
                   <div className="grid grid-cols-2 gap-2 mb-2">
                     <div>
                       <label className="text-[11px] font-medium block mb-0.5">
@@ -665,7 +665,7 @@ export default function EncounterDetailPage() {
               )}
 
               {/* Filter tabs */}
-              <div className="px-5 py-2 border-b border-slate-100 flex gap-1.5">
+              <div className="px-5 py-2 border-b border-slate-700/30 flex gap-1.5">
                 {["all", "medical", "military", "names", "custom"].map((f) => {
                   const count =
                     f === "all" ? dictionary.length : dictionary.filter((d) => d.category === f).length;
@@ -692,8 +692,8 @@ export default function EncounterDetailPage() {
                   return (
                     <div
                       key={d.id}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-md border border-slate-100 ${
-                        d.enabled ? "bg-white" : "bg-slate-50 opacity-60"
+                      className={`flex items-center gap-2 px-3 py-2 rounded-md border border-slate-700/30 ${
+                        d.enabled ? "bg-slate-800/50" : "bg-slate-900/30 opacity-60"
                       }`}
                     >
                       <button
@@ -701,14 +701,14 @@ export default function EncounterDetailPage() {
                         className={`w-4 h-4 rounded flex-shrink-0 flex items-center justify-center cursor-pointer ${
                           d.enabled
                             ? "bg-blue-600 text-white"
-                            : "border-2 border-slate-300"
+                            : "border-2 border-slate-600"
                         }`}
                       >
                         {d.enabled && <span className="text-[10px]">✓</span>}
                       </button>
                       <div className="flex-1 min-w-0 flex items-center gap-2">
                         <span className="text-xs text-red-500 line-through">{d.wrong_text}</span>
-                        <span className="text-slate-300 text-[10px]">→</span>
+                        <span className="text-slate-500 text-[10px]">→</span>
                         <span className="text-xs font-semibold">{d.correct_text}</span>
                       </div>
                       <span
@@ -718,7 +718,7 @@ export default function EncounterDetailPage() {
                       </span>
                       <button
                         onClick={() => removeDictTerm(d.id)}
-                        className="text-slate-300 hover:text-red-500 transition-colors p-0.5 cursor-pointer"
+                        className="text-slate-500 hover:text-red-500 transition-colors p-0.5 cursor-pointer"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -737,9 +737,9 @@ export default function EncounterDetailPage() {
           {note ? (
             <div className="flex flex-col gap-3">
               {/* Note banner */}
-              <Card className="p-3 bg-green-50 border-green-200 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-green-600" />
-                <span className="text-sm text-green-700 font-medium">
+              <Card className="p-3 bg-green-500/10 border-green-500/30 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-green-400" />
+                <span className="text-sm text-green-300 font-medium">
                   Note generated from transcript
                 </span>
                 <div className="ml-auto">
@@ -750,13 +750,13 @@ export default function EncounterDetailPage() {
               {/* Sections grouped */}
               {sortedNoteGroups.map((group) => (
                 <Card key={group} className="overflow-hidden">
-                  <div className="px-4 py-3 bg-slate-50 border-b border-slate-200">
-                    <h3 className="text-sm font-bold text-slate-800 uppercase">{group}</h3>
+                  <div className="px-4 py-3 bg-slate-900/50 border-b border-slate-700/50">
+                    <h3 className="text-sm font-bold text-slate-300 uppercase">{group}</h3>
                   </div>
                   {groupedNoteSections[group].map((section) => (
-                    <div key={section.section_id} className="px-4 py-3 border-b border-slate-100 last:border-0">
+                    <div key={section.section_id} className="px-4 py-3 border-b border-slate-700/30 last:border-0">
                       <div className="flex justify-between items-center mb-2">
-                        <h4 className="text-sm font-semibold text-slate-600">{section.title}</h4>
+                        <h4 className="text-sm font-semibold text-slate-400">{section.title}</h4>
                         <div className="flex gap-1.5">
                           <CopyButton text={section.content} label="Copy" />
                           <Button
@@ -793,11 +793,11 @@ export default function EncounterDetailPage() {
                         </div>
                       ) : (
                         <div
-                          className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap"
+                          className="text-sm leading-relaxed text-slate-300 whitespace-pre-wrap"
                           dangerouslySetInnerHTML={{
                             __html: section.content.replace(
                               /\*\*(.*?)\*\*/g,
-                              '<strong class="text-slate-900">$1</strong>'
+                              '<strong class="text-white">$1</strong>'
                             ),
                           }}
                         />
@@ -810,8 +810,8 @@ export default function EncounterDetailPage() {
               {/* Diagnoses with BLUF format */}
               {diagnoses.length > 0 && (
                 <Card className="overflow-hidden">
-                  <div className="px-4 py-3 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
-                    <h3 className="text-sm font-bold text-slate-800 uppercase">
+                  <div className="px-4 py-3 bg-slate-900/50 border-b border-slate-700/50 flex justify-between items-center">
+                    <h3 className="text-sm font-bold text-slate-300 uppercase">
                       Assessment & Plan — Diagnoses
                     </h3>
                     <CopyButton
@@ -827,15 +827,15 @@ export default function EncounterDetailPage() {
                   {diagnoses.map((dx, di) => (
                     <div
                       key={dx.id}
-                      className={`px-4 py-4 ${di < diagnoses.length - 1 ? "border-b-2 border-slate-200" : ""}`}
+                      className={`px-4 py-4 ${di < diagnoses.length - 1 ? "border-b-2 border-slate-700/50" : ""}`}
                     >
                       <div className="flex justify-between items-start mb-2">
                         <div className="flex-1">
-                          <div className="text-sm font-bold text-slate-900 mb-1">
+                          <div className="text-sm font-bold text-white mb-1">
                             BLUF — {dx.name}{" "}
-                            <span className="font-normal text-xs text-slate-500">({dx.icd10})</span>
+                            <span className="font-normal text-xs text-slate-400">({dx.icd10})</span>
                           </div>
-                          <div className="text-sm text-slate-700 leading-relaxed italic">
+                          <div className="text-sm text-slate-300 leading-relaxed italic">
                             {dx.bluf}
                           </div>
                         </div>
@@ -844,16 +844,16 @@ export default function EncounterDetailPage() {
                           label="Copy"
                         />
                       </div>
-                      <div className="text-sm leading-[1.7] text-slate-700 whitespace-pre-wrap">
+                      <div className="text-sm leading-[1.7] text-slate-300 whitespace-pre-wrap">
                         {dx.narrative}
                       </div>
                       {dx.prev_completed.length > 0 && (
                         <div className="mt-2">
-                          <div className="text-xs font-semibold text-slate-600 mb-1">
+                          <div className="text-xs font-semibold text-slate-400 mb-1">
                             Previously completed (results in parentheses):
                           </div>
                           {dx.prev_completed.map((p, i) => (
-                            <div key={i} className="text-sm text-slate-700 pl-2">
+                            <div key={i} className="text-sm text-slate-300 pl-2">
                               - {p}
                             </div>
                           ))}
@@ -861,11 +861,11 @@ export default function EncounterDetailPage() {
                       )}
                       {dx.ordered_planned.length > 0 && (
                         <div className="mt-2">
-                          <div className="text-xs font-semibold text-slate-600 mb-1">
+                          <div className="text-xs font-semibold text-slate-400 mb-1">
                             Ordered / Planned (in order):
                           </div>
                           {dx.ordered_planned.map((p, i) => (
-                            <div key={i} className="text-sm text-slate-700 pl-2">
+                            <div key={i} className="text-sm text-slate-300 pl-2">
                               {i + 1}. {p}
                             </div>
                           ))}
@@ -884,7 +884,7 @@ export default function EncounterDetailPage() {
                     <CopyButton text={note.full_text} label="Copy" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-sm leading-relaxed text-slate-700 whitespace-pre-wrap">
+                    <div className="text-sm leading-relaxed text-slate-300 whitespace-pre-wrap">
                       {note.full_text}
                     </div>
                   </CardContent>
@@ -924,24 +924,24 @@ export default function EncounterDetailPage() {
                   <div
                     key={t.id}
                     onClick={() => toggleEncTodo(t.id, t.done)}
-                    className={`flex items-center gap-3 p-3 rounded-lg border border-slate-200 cursor-pointer ${
-                      t.done ? "bg-slate-50" : "bg-white hover:bg-slate-50"
+                    className={`flex items-center gap-3 p-3 rounded-lg border border-slate-700/50 cursor-pointer ${
+                      t.done ? "bg-slate-900/30" : "bg-slate-800/50 hover:bg-slate-700/30"
                     }`}
                   >
                     <div
                       className={`w-5 h-5 rounded-md flex-shrink-0 flex items-center justify-center ${
-                        t.done ? "bg-green-500 text-white" : "border-2 border-slate-300"
+                        t.done ? "bg-green-500 text-white" : "border-2 border-slate-600"
                       }`}
                     >
                       {t.done && <Check className="w-3 h-3" />}
                     </div>
                     <span
-                      className={`text-sm flex-1 ${t.done ? "line-through text-slate-400" : ""}`}
+                      className={`text-sm flex-1 ${t.done ? "line-through text-slate-500" : ""}`}
                     >
                       {t.text}
                     </span>
                     <span
-                      className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${cc?.bg || "bg-slate-100"} ${cc?.text || "text-slate-600"}`}
+                      className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${cc?.bg || "bg-slate-700/30"} ${cc?.text || "text-slate-400"}`}
                     >
                       {t.category}
                     </span>
@@ -957,7 +957,7 @@ export default function EncounterDetailPage() {
               <h3 className="text-sm font-bold">Provider To-Do List</h3>
               <p className="text-xs text-slate-400 mt-0.5">Persistent across all encounters</p>
             </CardHeader>
-            <div className="px-5 pb-2 border-b border-slate-100">
+            <div className="px-5 pb-2 border-b border-slate-700/30">
               <div className="flex gap-2">
                 <Input
                   placeholder="Add to-do..."
@@ -976,20 +976,20 @@ export default function EncounterDetailPage() {
                 <div
                   key={t.id}
                   onClick={() => toggleProvTodo(t.id, t.done)}
-                  className={`flex items-center gap-3 p-3 rounded-lg border border-slate-200 cursor-pointer ${
-                    t.done ? "bg-slate-50" : "bg-white hover:bg-slate-50"
+                  className={`flex items-center gap-3 p-3 rounded-lg border border-slate-700/50 cursor-pointer ${
+                    t.done ? "bg-slate-900/30" : "bg-slate-800/50 hover:bg-slate-700/30"
                   }`}
                 >
                   <div
                     className={`w-5 h-5 rounded-md flex-shrink-0 flex items-center justify-center ${
-                      t.done ? "bg-green-500 text-white" : "border-2 border-slate-300"
+                      t.done ? "bg-green-500 text-white" : "border-2 border-slate-600"
                     }`}
                   >
                     {t.done && <Check className="w-3 h-3" />}
                   </div>
                   <div className="flex-1">
                     <span
-                      className={`text-sm ${t.done ? "line-through text-slate-400" : ""}`}
+                      className={`text-sm ${t.done ? "line-through text-slate-500" : ""}`}
                     >
                       {t.text}
                     </span>

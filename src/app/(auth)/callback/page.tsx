@@ -20,7 +20,7 @@ export default function AuthCallbackPage() {
 
   return (
     <div className="flex items-center justify-center min-h-[200px]">
-      <p className="text-slate-500">Completing sign-in...</p>
+      <p className="text-slate-400">Completing sign-in...</p>
     </div>
   );
 }

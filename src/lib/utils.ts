@@ -29,20 +29,20 @@ export function fmtRelative(date: string | Date) {
 }
 
 export const statusConfig: Record<string, { bg: string; text: string; border: string; label: string }> = {
-  recording: { bg: "bg-red-50", text: "text-red-500", border: "border-red-200", label: "Recording" },
-  scrubbing: { bg: "bg-amber-50", text: "text-amber-500", border: "border-amber-200", label: "Scrubbing" },
-  generating: { bg: "bg-blue-50", text: "text-blue-500", border: "border-blue-200", label: "Generating" },
-  review: { bg: "bg-purple-50", text: "text-purple-500", border: "border-purple-200", label: "Ready for Review" },
-  complete: { bg: "bg-green-50", text: "text-green-500", border: "border-green-200", label: "Complete" },
+  recording: { bg: "bg-red-500/10", text: "text-red-400", border: "border-red-500/30", label: "Recording" },
+  scrubbing: { bg: "bg-amber-500/10", text: "text-amber-400", border: "border-amber-500/30", label: "Scrubbing" },
+  generating: { bg: "bg-blue-500/10", text: "text-blue-400", border: "border-blue-500/30", label: "Generating" },
+  review: { bg: "bg-purple-500/10", text: "text-purple-400", border: "border-purple-500/30", label: "Ready for Review" },
+  complete: { bg: "bg-green-500/10", text: "text-green-400", border: "border-green-500/30", label: "Complete" },
 };
 
 export const categoryConfig: Record<string, { bg: string; text: string }> = {
-  imaging: { bg: "bg-blue-50", text: "text-blue-600" },
-  referral: { bg: "bg-purple-50", text: "text-purple-600" },
-  rx: { bg: "bg-red-50", text: "text-red-600" },
-  lab: { bg: "bg-amber-50", text: "text-amber-600" },
-  followup: { bg: "bg-green-50", text: "text-green-600" },
-  general: { bg: "bg-slate-100", text: "text-slate-600" },
+  imaging: { bg: "bg-blue-500/10", text: "text-blue-400" },
+  referral: { bg: "bg-purple-500/10", text: "text-purple-400" },
+  rx: { bg: "bg-red-500/10", text: "text-red-400" },
+  lab: { bg: "bg-amber-500/10", text: "text-amber-400" },
+  followup: { bg: "bg-green-500/10", text: "text-green-400" },
+  general: { bg: "bg-slate-500/10", text: "text-slate-400" },
 };
 
 export const sectionFormatLabels: Record<string, string> = {

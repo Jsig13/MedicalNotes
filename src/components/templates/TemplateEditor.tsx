@@ -24,7 +24,7 @@ const FORMAT_OPTIONS = [
 
 const GROUP_OPTIONS = ["Subjective", "Objective", "Assessment & Plan", "Orders", "Narrative"];
 
-// Section row — matches Freed's UI
+// Section row
 function SectionRow({
   section,
   onUpdate,
@@ -39,31 +39,31 @@ function SectionRow({
   isExpanded: boolean;
 }) {
   return (
-    <div className="border border-slate-200 rounded-lg overflow-hidden mb-2">
-      {/* Row header — title + format dropdown */}
+    <div className="border border-slate-700/50 rounded-lg overflow-hidden mb-2 transition-colors hover:border-slate-600/50">
+      {/* Row header */}
       <div
-        className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-slate-50 transition-colors"
+        className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-slate-700/30 transition-colors"
         onClick={onToggleExpand}
       >
-        <GripVertical className="w-4 h-4 text-slate-300 cursor-grab flex-shrink-0" />
+        <GripVertical className="w-4 h-4 text-slate-500 cursor-grab flex-shrink-0" />
         <div className="flex-1 min-w-0">
           {isExpanded ? (
             <input
-              className="w-full text-sm font-medium border-0 border-b border-slate-300 focus:border-blue-500 focus:outline-none bg-transparent py-0.5"
+              className="w-full text-sm font-medium text-slate-200 border-0 border-b border-slate-600 focus:border-blue-500 focus:outline-none bg-transparent py-0.5"
               value={section.title}
               onChange={(e) => onUpdate({ title: e.target.value })}
               onClick={(e) => e.stopPropagation()}
               placeholder="Section title"
             />
           ) : (
-            <span className="text-sm font-medium text-slate-800">{section.title}</span>
+            <span className="text-sm font-medium text-slate-200">{section.title}</span>
           )}
           {!isExpanded && section.instructions && (
-            <p className="text-xs text-slate-400 truncate mt-0.5">{section.instructions}</p>
+            <p className="text-xs text-slate-500 truncate mt-0.5">{section.instructions}</p>
           )}
         </div>
         <select
-          className="text-xs text-slate-500 bg-transparent border-0 focus:outline-none cursor-pointer pr-6"
+          className="text-xs text-slate-400 bg-transparent border-0 focus:outline-none cursor-pointer pr-6"
           value={section.format}
           onChange={(e) => {
             e.stopPropagation();
@@ -77,34 +77,34 @@ function SectionRow({
         </select>
         <button
           onClick={(e) => { e.stopPropagation(); onDelete(); }}
-          className="text-slate-300 hover:text-red-500 transition-colors p-1"
+          className="text-slate-500 hover:text-red-400 transition-colors p-1"
         >
           <Trash2 className="w-3.5 h-3.5" />
         </button>
         {isExpanded ? (
-          <ChevronDown className="w-4 h-4 text-slate-400 flex-shrink-0" />
+          <ChevronDown className="w-4 h-4 text-slate-500 flex-shrink-0" />
         ) : (
-          <ChevronRight className="w-4 h-4 text-slate-400 flex-shrink-0" />
+          <ChevronRight className="w-4 h-4 text-slate-500 flex-shrink-0" />
         )}
       </div>
 
       {/* Expanded: AI instructions editor */}
       {isExpanded && (
-        <div className="px-4 pb-4 pt-1 bg-slate-50 border-t border-slate-100">
+        <div className="px-4 pb-4 pt-1 bg-slate-800/50 border-t border-slate-700/50">
           <div className="mb-2">
-            <label className="text-xs font-medium text-slate-500 block mb-1">
+            <label className="text-xs font-medium text-slate-400 block mb-1">
               Custom AI Instructions
             </label>
-            <div className="flex items-start gap-2 mb-2 p-2 rounded bg-blue-50 border border-blue-100">
-              <Info className="w-3.5 h-3.5 text-blue-500 mt-0.5 flex-shrink-0" />
-              <div className="text-xs text-blue-700 leading-relaxed">
+            <div className="flex items-start gap-2 mb-2 p-2 rounded bg-blue-500/10 border border-blue-500/20">
+              <Info className="w-3.5 h-3.5 text-blue-400 mt-0.5 flex-shrink-0" />
+              <div className="text-xs text-blue-300 leading-relaxed">
                 <strong>[Square brackets]</strong> = Content placeholders (AI fills these in)<br />
                 <strong>(Parentheses)</strong> = Instructions for how AI should handle content<br />
                 <strong>&quot;Quotation marks&quot;</strong> = Verbatim text that appears exactly as written
               </div>
             </div>
             <textarea
-              className="w-full text-sm border border-slate-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y min-h-[80px] font-mono bg-white"
+              className="w-full text-sm border border-slate-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 resize-y min-h-[80px] font-mono bg-slate-900/50 text-slate-200 placeholder:text-slate-500"
               value={section.instructions}
               onChange={(e) => onUpdate({ instructions: e.target.value })}
               placeholder='e.g., [Mention any allergies the patient has] (Only include if explicitly mentioned) "Appropriate mood and affect."'
@@ -113,9 +113,9 @@ function SectionRow({
           </div>
           <div className="flex gap-4">
             <div>
-              <label className="text-xs font-medium text-slate-500 block mb-1">Group</label>
+              <label className="text-xs font-medium text-slate-400 block mb-1">Group</label>
               <select
-                className="text-sm border border-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                className="text-sm border border-slate-700 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 bg-slate-900/50 text-slate-200"
                 value={section.group}
                 onChange={(e) => onUpdate({ group: e.target.value })}
               >
@@ -188,13 +188,13 @@ export default function TemplateEditor({
   Object.keys(groups).forEach((g) => { if (!sortedGroups.includes(g)) sortedGroups.push(g); });
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+    <div className="bg-slate-800/50 rounded-xl border border-slate-700/50 shadow-sm overflow-hidden animate-fade-in">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-slate-700/50">
         <div className="flex items-center gap-3">
-          {template && <button onClick={onCancel} className="text-slate-400 hover:text-slate-600"><X className="w-5 h-5" /></button>}
+          {template && <button onClick={onCancel} className="text-slate-500 hover:text-slate-300 transition-colors"><X className="w-5 h-5" /></button>}
           <input
-            className="text-lg font-bold text-slate-900 border-0 focus:outline-none bg-transparent placeholder:text-slate-300"
+            className="text-lg font-bold text-white border-0 focus:outline-none bg-transparent placeholder:text-slate-600"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Template Name"
@@ -203,13 +203,13 @@ export default function TemplateEditor({
         <div className="flex items-center gap-2">
           <button
             onClick={onCancel}
-            className="px-3 py-1.5 text-sm text-slate-500 hover:text-slate-700 transition-colors"
+            className="px-3 py-1.5 text-sm text-slate-400 hover:text-slate-200 transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={() => onSave({ name, description, category, sections })}
-            className="flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+            className="flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shadow-sm shadow-blue-500/20"
           >
             <Save className="w-3.5 h-3.5" />
             Save
@@ -218,21 +218,21 @@ export default function TemplateEditor({
       </div>
 
       {/* Meta */}
-      <div className="px-5 py-3 border-b border-slate-100 bg-slate-50/50">
+      <div className="px-5 py-3 border-b border-slate-700/30 bg-slate-900/30">
         <div className="flex gap-4">
           <div className="flex-1">
-            <label className="text-xs font-medium text-slate-500 block mb-1">Description</label>
+            <label className="text-xs font-medium text-slate-400 block mb-1">Description</label>
             <input
-              className="w-full text-sm border border-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="w-full text-sm border border-slate-700 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 bg-slate-800/50 text-slate-200 placeholder:text-slate-500"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Brief description of when to use this template"
             />
           </div>
           <div className="w-48">
-            <label className="text-xs font-medium text-slate-500 block mb-1">Category</label>
+            <label className="text-xs font-medium text-slate-400 block mb-1">Category</label>
             <select
-              className="w-full text-sm border border-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="w-full text-sm border border-slate-700 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 bg-slate-800/50 text-slate-200"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
             >
@@ -247,17 +247,17 @@ export default function TemplateEditor({
       </div>
 
       {/* Info bar */}
-      <div className="px-5 py-2 border-b border-slate-100">
-        <p className="text-xs text-slate-400">
+      <div className="px-5 py-2 border-b border-slate-700/30">
+        <p className="text-xs text-slate-500">
           Customize notes with subsections. Templates will appear in the template selector on encounters.
         </p>
       </div>
 
-      {/* Sections grouped by category — Freed-style */}
+      {/* Sections grouped by category */}
       <div className="px-5 py-4">
         {sortedGroups.map((group) => (
           <div key={group} className="mb-6">
-            <h3 className="text-sm font-bold text-slate-900 mb-3">{group}</h3>
+            <h3 className="text-sm font-bold text-slate-200 mb-3">{group}</h3>
             {(groups[group] || [])
               .sort((a, b) => a.order - b.order)
               .map((section) => (
@@ -272,7 +272,7 @@ export default function TemplateEditor({
               ))}
             <button
               onClick={() => addSection(group)}
-              className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-blue-600 mt-1 transition-colors"
+              className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-blue-400 mt-1 transition-colors"
             >
               New subsection <ChevronDown className="w-3.5 h-3.5" />
             </button>
@@ -280,13 +280,13 @@ export default function TemplateEditor({
         ))}
 
         {/* Add new group */}
-        <div className="mt-4 pt-4 border-t border-slate-100">
+        <div className="mt-4 pt-4 border-t border-slate-700/30">
           <button
             onClick={() => {
               const group = prompt("Group name (e.g., Subjective, Objective, Assessment & Plan):");
               if (group) addSection(group);
             }}
-            className="flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+            className="flex items-center gap-1.5 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
           >
             <Plus className="w-4 h-4" />
             Add new section group

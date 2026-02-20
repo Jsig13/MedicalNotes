@@ -34,12 +34,12 @@ export default function NewTemplatePage() {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 animate-fade-in">
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="sm" onClick={() => router.push("/templates")}>
           <ArrowLeft className="w-4 h-4" />
         </Button>
-        <h1 className="text-xl font-bold">Create Template</h1>
+        <h1 className="text-xl font-bold text-white">Create Template</h1>
       </div>
       <TemplateEditor onSave={handleSave} onCancel={() => router.push("/templates")} />
     </div>

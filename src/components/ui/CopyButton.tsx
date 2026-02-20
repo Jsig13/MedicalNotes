@@ -26,7 +26,7 @@ export default function CopyButton({ text, label = "Copy", size = "sm" }: CopyBu
       size={size}
       onClick={handleCopy}
     >
-      {copied ? <><Check className="w-3.5 h-3.5" /> Copied</> : <><Copy className="w-3.5 h-3.5" /> {label}</>}
+      {copied ? <><Check className="w-3.5 h-3.5 animate-check-pop" /> Copied</> : <><Copy className="w-3.5 h-3.5" /> {label}</>}
     </Button>
   );
 }

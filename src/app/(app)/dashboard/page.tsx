@@ -108,17 +108,17 @@ export default function DashboardPage() {
   };
 
   const stats = [
-    { value: activeCount, label: "Active Recordings", icon: Mic, bg: "bg-red-50", color: "text-red-500" },
-    { value: reviewCount, label: "Pending Review", icon: Clock, bg: "bg-purple-50", color: "text-purple-500" },
-    { value: completeCount, label: "Completed", icon: CheckCircle2, bg: "bg-green-50", color: "text-green-500" },
-    { value: pendingTodos.length, label: "Provider To-Dos", icon: ListTodo, bg: "bg-orange-50", color: "text-orange-500" },
+    { value: activeCount, label: "Active Recordings", icon: Mic, bg: "bg-red-500/10", color: "text-red-400" },
+    { value: reviewCount, label: "Pending Review", icon: Clock, bg: "bg-purple-500/10", color: "text-purple-400" },
+    { value: completeCount, label: "Completed", icon: CheckCircle2, bg: "bg-green-500/10", color: "text-green-400" },
+    { value: pendingTodos.length, label: "Provider To-Dos", icon: ListTodo, bg: "bg-orange-500/10", color: "text-orange-400" },
   ];
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 animate-fade-in">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <h1 className="text-2xl font-bold text-white">Dashboard</h1>
           <p className="text-slate-500 text-sm mt-0.5">
             Welcome back, {provider?.name || "Doctor"}
           </p>
@@ -131,13 +131,13 @@ export default function DashboardPage() {
       {/* Stats */}
       <div className="grid grid-cols-4 gap-3">
         {stats.map((s, i) => (
-          <Card key={i}>
+          <Card key={i} className="stagger-item transition-lift">
             <div className="flex items-center gap-4 p-5">
               <div className={`p-3 rounded-lg ${s.bg} ${s.color} flex items-center justify-center`}>
                 <s.icon className="w-4 h-4" />
               </div>
               <div>
-                <div className="text-2xl font-bold">{s.value}</div>
+                <div className="text-2xl font-bold text-white">{s.value}</div>
                 <div className="text-xs text-slate-500">{s.label}</div>
               </div>
             </div>
@@ -150,14 +150,14 @@ export default function DashboardPage() {
         {/* Recent Encounters */}
         <Card>
           <CardHeader className="flex flex-row justify-between items-center">
-            <h3 className="text-sm font-semibold">Recent Encounters</h3>
+            <h3 className="text-sm font-semibold text-slate-200">Recent Encounters</h3>
             <Button variant="ghost" size="sm" onClick={() => router.push("/encounters")}>
               View All
             </Button>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
             {encounters.length === 0 && (
-              <p className="text-sm text-slate-400 text-center py-4">No encounters yet</p>
+              <p className="text-sm text-slate-500 text-center py-4">No encounters yet</p>
             )}
             {encounters.slice(0, 5).map((enc) => {
               const sc = statusConfig[enc.status];
@@ -165,12 +165,12 @@ export default function DashboardPage() {
                 <div
                   key={enc.id}
                   onClick={() => router.push(`/encounters/${enc.id}`)}
-                  className="flex justify-between items-center p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors"
+                  className="stagger-item flex justify-between items-center p-3 rounded-lg border border-slate-700/50 cursor-pointer hover:bg-slate-700/30 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <Stethoscope className="w-4 h-4 text-slate-400" />
                     <div>
-                      <div className="text-sm font-medium">{enc.patient_name}</div>
+                      <div className="text-sm font-medium text-slate-200">{enc.patient_name}</div>
                       <div className="text-xs text-slate-500">{enc.chief_complaint}</div>
                     </div>
                   </div>
@@ -186,10 +186,10 @@ export default function DashboardPage() {
         {/* Provider To-Do List */}
         <Card>
           <CardHeader>
-            <h3 className="text-sm font-semibold">Provider To-Do List</h3>
-            <p className="text-xs text-slate-400 mt-0.5">Persistent across all encounters</p>
+            <h3 className="text-sm font-semibold text-slate-200">Provider To-Do List</h3>
+            <p className="text-xs text-slate-500 mt-0.5">Persistent across all encounters</p>
           </CardHeader>
-          <div className="px-5 pb-2 border-b border-slate-100">
+          <div className="px-5 pb-2 border-b border-slate-700/30">
             <div className="flex gap-2">
               <Input
                 placeholder="Add to-do..."
@@ -208,17 +208,17 @@ export default function DashboardPage() {
               <div
                 key={t.id}
                 onClick={() => toggleProviderTodo(t.id, t.done)}
-                className="flex items-center gap-2.5 p-2.5 rounded-md border border-slate-100 cursor-pointer hover:bg-slate-50"
+                className="stagger-item flex items-center gap-2.5 p-2.5 rounded-md border border-slate-700/30 cursor-pointer hover:bg-slate-700/30"
               >
-                <div className="w-4.5 h-4.5 rounded border-2 border-slate-300 flex-shrink-0" />
+                <div className="w-4.5 h-4.5 rounded border-2 border-slate-600 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm">{t.text}</div>
-                  <div className="text-xs text-slate-400">{t.encounter_label}</div>
+                  <div className="text-sm text-slate-200">{t.text}</div>
+                  <div className="text-xs text-slate-500">{t.encounter_label}</div>
                 </div>
               </div>
             ))}
             {doneTodos.length > 0 && (
-              <div className="text-xs text-slate-400 px-1 pt-2 font-medium">
+              <div className="text-xs text-slate-500 px-1 pt-2 font-medium">
                 Completed ({doneTodos.length})
               </div>
             )}
@@ -226,12 +226,12 @@ export default function DashboardPage() {
               <div
                 key={t.id}
                 onClick={() => toggleProviderTodo(t.id, t.done)}
-                className="flex items-center gap-2.5 p-2.5 rounded-md cursor-pointer opacity-60"
+                className="stagger-item flex items-center gap-2.5 p-2.5 rounded-md cursor-pointer opacity-60"
               >
                 <div className="w-4.5 h-4.5 rounded bg-green-500 flex items-center justify-center text-white flex-shrink-0">
                   <Check className="w-3 h-3" />
                 </div>
-                <span className="text-sm line-through text-slate-400">{t.text}</span>
+                <span className="text-sm line-through text-slate-500">{t.text}</span>
               </div>
             ))}
           </CardContent>
@@ -241,14 +241,14 @@ export default function DashboardPage() {
       {/* Outstanding Orders */}
       <Card>
         <CardHeader>
-          <h3 className="text-sm font-semibold">Outstanding Orders & Tasks</h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <h3 className="text-sm font-semibold text-slate-200">Outstanding Orders & Tasks</h3>
+          <p className="text-xs text-slate-500 mt-0.5">
             Pending items from all encounters &mdash; {encounterTodos.length} remaining
           </p>
         </CardHeader>
         <CardContent>
           {encounterTodos.length === 0 ? (
-            <p className="text-sm text-slate-400 text-center py-4">No outstanding orders</p>
+            <p className="text-sm text-slate-500 text-center py-4">No outstanding orders</p>
           ) : (
             <div className="grid grid-cols-3 gap-2">
               {encounterTodos.map((t) => {
@@ -257,18 +257,18 @@ export default function DashboardPage() {
                   <div
                     key={t.id}
                     onClick={() => toggleEncounterTodo(t.id, t.done)}
-                    className="flex items-center gap-2.5 p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-50"
+                    className="stagger-item flex items-center gap-2.5 p-3 rounded-lg border border-slate-700/50 cursor-pointer hover:bg-slate-700/30"
                   >
-                    <div className="w-4.5 h-4.5 rounded border-2 border-slate-300 flex-shrink-0" />
+                    <div className="w-4.5 h-4.5 rounded border-2 border-slate-600 flex-shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <div className="text-xs font-medium truncate">{t.text}</div>
+                      <div className="text-xs font-medium truncate text-slate-200">{t.text}</div>
                       <div className="flex items-center gap-1.5 mt-1">
                         <span
-                          className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium ${cc?.bg || "bg-slate-100"} ${cc?.text || "text-slate-600"}`}
+                          className={`inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium ${cc?.bg || "bg-slate-800/50"} ${cc?.text || "text-slate-400"}`}
                         >
                           {t.category}
                         </span>
-                        <span className="text-[10px] text-slate-400">{t.patient_name}</span>
+                        <span className="text-[10px] text-slate-500">{t.patient_name}</span>
                       </div>
                     </div>
                   </div>

@@ -73,30 +73,30 @@ export default function NewEncounterPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto animate-fade-in">
       <div className="flex items-center gap-3 mb-6">
         <Button variant="ghost" size="sm" onClick={() => router.back()}>
           <ArrowLeft className="w-4 h-4" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold">New Encounter</h1>
-          <p className="text-sm text-slate-500 mt-0.5">Create a new patient encounter</p>
+          <h1 className="text-2xl font-bold text-white">New Encounter</h1>
+          <p className="text-sm text-slate-400 mt-0.5">Create a new patient encounter</p>
         </div>
       </div>
 
       <Card>
         <CardHeader>
-          <h2 className="text-base font-semibold">Encounter Details</h2>
+          <h2 className="text-base font-semibold text-white">Encounter Details</h2>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleCreate} className="flex flex-col gap-4">
             {error && (
-              <div className="p-3 rounded-lg bg-red-50 text-red-600 text-sm border border-red-200">
+              <div className="p-3 rounded-lg bg-red-500/10 text-red-400 text-sm border border-red-500/30">
                 {error}
               </div>
             )}
             <div>
-              <label className="text-sm font-medium text-slate-700 block mb-1">
+              <label className="text-sm font-medium text-slate-300 block mb-1">
                 Patient Name <span className="text-red-500">*</span>
               </label>
               <Input
@@ -107,7 +107,7 @@ export default function NewEncounterPage() {
               />
             </div>
             <div>
-              <label className="text-sm font-medium text-slate-700 block mb-1">
+              <label className="text-sm font-medium text-slate-300 block mb-1">
                 MRN / Patient ID
               </label>
               <Input
@@ -117,7 +117,7 @@ export default function NewEncounterPage() {
               />
             </div>
             <div>
-              <label className="text-sm font-medium text-slate-700 block mb-1">
+              <label className="text-sm font-medium text-slate-300 block mb-1">
                 Chief Complaint
               </label>
               <Textarea
@@ -128,7 +128,7 @@ export default function NewEncounterPage() {
               />
             </div>
             <div>
-              <label className="text-sm font-medium text-slate-700 block mb-1">
+              <label className="text-sm font-medium text-slate-300 block mb-1">
                 Note Template
               </label>
               <Select value={templateId} onChange={(e) => setTemplateId(e.target.value)}>
@@ -140,7 +140,7 @@ export default function NewEncounterPage() {
                 ))}
               </Select>
               {templateId && templates.find((t) => t.id === templateId)?.description && (
-                <p className="text-xs text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 mt-1">
                   {templates.find((t) => t.id === templateId)?.description}
                 </p>
               )}

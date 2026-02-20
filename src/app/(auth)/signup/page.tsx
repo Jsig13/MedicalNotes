@@ -57,26 +57,26 @@ export default function SignupPage() {
   };
 
   return (
-    <Card>
+    <Card className="animate-scale-in">
       <CardHeader className="text-center border-b-0 pb-0">
         <div className="flex items-center justify-center gap-2 mb-4">
-          <div className="p-2 rounded-lg bg-blue-600 text-white">
+          <div className="p-2 rounded-lg bg-blue-600 text-white shadow-lg shadow-blue-500/20">
             <Mic className="w-5 h-5" />
           </div>
-          <span className="text-xl font-bold">MedScribe</span>
+          <span className="text-xl font-bold text-white">MedScribe</span>
         </div>
-        <h1 className="text-xl font-semibold text-slate-900">Create your account</h1>
-        <p className="text-sm text-slate-500 mt-1">Set up your provider profile</p>
+        <h1 className="text-xl font-semibold text-white">Create your account</h1>
+        <p className="text-sm text-slate-400 mt-1">Set up your provider profile</p>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSignup} className="flex flex-col gap-4">
           {error && (
-            <div className="p-3 rounded-lg bg-red-50 text-red-600 text-sm border border-red-200">
+            <div className="p-3 rounded-lg bg-red-500/10 text-red-400 text-sm border border-red-500/30 animate-slide-up">
               {error}
             </div>
           )}
           <div>
-            <label className="text-sm font-medium text-slate-700 block mb-1">Full Name</label>
+            <label className="text-sm font-medium text-slate-300 block mb-1">Full Name</label>
             <Input
               type="text"
               placeholder="Dr. Jane Smith"
@@ -86,7 +86,7 @@ export default function SignupPage() {
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-slate-700 block mb-1">Email</label>
+            <label className="text-sm font-medium text-slate-300 block mb-1">Email</label>
             <Input
               type="email"
               placeholder="you@example.com"
@@ -96,7 +96,7 @@ export default function SignupPage() {
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-slate-700 block mb-1">Password</label>
+            <label className="text-sm font-medium text-slate-300 block mb-1">Password</label>
             <Input
               type="password"
               placeholder="Min 6 characters"
@@ -108,7 +108,7 @@ export default function SignupPage() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-sm font-medium text-slate-700 block mb-1">Specialty</label>
+              <label className="text-sm font-medium text-slate-300 block mb-1">Specialty</label>
               <Select value={specialty} onChange={(e) => setSpecialty(e.target.value)}>
                 <option value="General Practice">General Practice</option>
                 <option value="Family Medicine">Family Medicine</option>
@@ -121,7 +121,7 @@ export default function SignupPage() {
               </Select>
             </div>
             <div>
-              <label className="text-sm font-medium text-slate-700 block mb-1">Credentials</label>
+              <label className="text-sm font-medium text-slate-300 block mb-1">Credentials</label>
               <Select value={credentials} onChange={(e) => setCredentials(e.target.value)}>
                 <option value="MD">MD</option>
                 <option value="DO">DO</option>
@@ -135,9 +135,9 @@ export default function SignupPage() {
           <Button type="submit" disabled={loading} className="w-full">
             {loading ? "Creating account..." : "Create Account"}
           </Button>
-          <p className="text-sm text-center text-slate-500">
+          <p className="text-sm text-center text-slate-400">
             Already have an account?{" "}
-            <Link href="/login" className="text-blue-600 hover:underline font-medium">
+            <Link href="/login" className="text-blue-400 hover:underline font-medium">
               Sign in
             </Link>
           </p>

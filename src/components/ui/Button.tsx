@@ -9,12 +9,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantClasses: Record<string, string> = {
-  primary: "bg-blue-600 text-white hover:bg-blue-700",
-  secondary: "bg-slate-100 text-slate-900 hover:bg-slate-200",
-  destructive: "bg-red-500 text-white hover:bg-red-600",
-  ghost: "bg-transparent text-slate-500 hover:bg-slate-100 hover:text-slate-700",
-  outline: "bg-transparent text-slate-900 border border-slate-200 hover:bg-slate-50",
-  success: "bg-green-500 text-white hover:bg-green-600",
+  primary: "bg-blue-600 text-white hover:bg-blue-500 shadow-sm shadow-blue-500/20",
+  secondary: "bg-slate-800 text-slate-200 hover:bg-slate-700",
+  destructive: "bg-red-500/90 text-white hover:bg-red-500 shadow-sm shadow-red-500/20",
+  ghost: "bg-transparent text-slate-400 hover:bg-slate-800 hover:text-slate-200",
+  outline: "bg-transparent text-slate-300 border border-slate-700 hover:bg-slate-800 hover:border-slate-600",
+  success: "bg-green-500/90 text-white hover:bg-green-500 shadow-sm shadow-green-500/20",
 };
 
 const sizeClasses: Record<string, string> = {
@@ -29,7 +29,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed",
+          "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]",
           variantClasses[variant],
           sizeClasses[size],
           className

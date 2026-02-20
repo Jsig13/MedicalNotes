@@ -46,11 +46,11 @@ export default function EncountersPage() {
   });
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 animate-fade-in">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold">Encounters</h1>
-          <p className="text-slate-500 text-sm mt-0.5">Manage patient encounters and recordings</p>
+          <h1 className="text-2xl font-bold text-white">Encounters</h1>
+          <p className="text-slate-400 text-sm mt-0.5">Manage patient encounters and recordings</p>
         </div>
         <Button onClick={() => router.push("/encounters/new")}>
           <Plus className="w-4 h-4" /> New Encounter
@@ -60,7 +60,7 @@ export default function EncountersPage() {
       {/* Filters */}
       <div className="flex gap-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
           <Input
             placeholder="Search encounters..."
             value={search}
@@ -81,7 +81,7 @@ export default function EncountersPage() {
       {/* Encounter List */}
       <div className="flex flex-col gap-2">
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-slate-400">
+          <div className="text-center py-12 text-slate-500">
             <Stethoscope className="w-10 h-10 mx-auto mb-3 opacity-50" />
             <p className="text-sm font-medium">No encounters found</p>
             <p className="text-xs mt-1">Create a new encounter to get started</p>
@@ -92,24 +92,24 @@ export default function EncountersPage() {
           return (
             <Card
               key={enc.id}
-              className="cursor-pointer hover:border-blue-400 transition-colors"
+              className="stagger-item cursor-pointer hover:border-blue-400 hover:bg-slate-700/30 transition-colors"
             >
               <div
                 className="p-4 flex justify-between items-center"
                 onClick={() => router.push(`/encounters/${enc.id}`)}
               >
                 <div className="flex items-center gap-4">
-                  <Stethoscope className="w-4 h-4 text-slate-400" />
+                  <Stethoscope className="w-4 h-4 text-slate-500" />
                   <div>
-                    <div className="font-medium text-sm">{enc.patient_name}</div>
-                    <div className="text-xs text-slate-500">
+                    <div className="font-medium text-sm text-white">{enc.patient_name}</div>
+                    <div className="text-xs text-slate-400">
                       {enc.chief_complaint}
                       {enc.patient_id && ` · MRN: ${enc.patient_id}`}
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="text-xs text-slate-400">{fmtDateTime(enc.date_of_service)}</span>
+                  <span className="text-xs text-slate-500">{fmtDateTime(enc.date_of_service)}</span>
                   <Badge variant={enc.status as "recording" | "review" | "complete"}>
                     {sc?.label || enc.status}
                   </Badge>
