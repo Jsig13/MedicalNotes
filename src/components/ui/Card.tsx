@@ -1,48 +1,32 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { HTMLAttributes, forwardRef } from "react";
 
-const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn(
-        "rounded-xl border border-[var(--border)] bg-[var(--card)] text-[var(--card-foreground)] shadow-sm",
-        className
-      )}
-      {...props}
-    />
-  )
-);
-Card.displayName = "Card";
+interface CardProps {
+  children: React.ReactNode;
+  className?: string;
+}
 
-const CardHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("p-6 pb-3", className)} {...props} />
-  )
-);
-CardHeader.displayName = "CardHeader";
+export default function Card({ children, className }: CardProps) {
+  return (
+    <div className={cn("bg-white rounded-xl border border-slate-200 shadow-sm", className)}>
+      {children}
+    </div>
+  );
+}
 
-const CardTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn("text-lg font-semibold", className)} {...props} />
-  )
-);
-CardTitle.displayName = "CardTitle";
+export function CardHeader({ children, className }: CardProps) {
+  return (
+    <div className={cn("px-5 py-4 border-b border-slate-200", className)}>
+      {children}
+    </div>
+  );
+}
 
-const CardDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
-  ({ className, ...props }, ref) => (
-    <p ref={ref} className={cn("text-sm text-[var(--muted-foreground)]", className)} {...props} />
-  )
-);
-CardDescription.displayName = "CardDescription";
-
-const CardContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("p-6 pt-3", className)} {...props} />
-  )
-);
-CardContent.displayName = "CardContent";
-
-export { Card, CardHeader, CardTitle, CardDescription, CardContent };
+export function CardContent({ children, className }: CardProps) {
+  return (
+    <div className={cn("px-5 py-4", className)}>
+      {children}
+    </div>
+  );
+}

@@ -1,27 +1,33 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { HTMLAttributes } from "react";
 
-interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  variant?: "default" | "success" | "warning" | "destructive" | "outline";
+interface BadgeProps {
+  children: React.ReactNode;
+  variant?: "default" | "recording" | "scrubbing" | "generating" | "review" | "complete" | "primary";
+  className?: string;
 }
 
-export function Badge({ className, variant = "default", ...props }: BadgeProps) {
+const variantClasses: Record<string, string> = {
+  default: "bg-slate-100 text-slate-600 border-slate-200",
+  recording: "bg-red-50 text-red-500 border-red-200",
+  scrubbing: "bg-amber-50 text-amber-500 border-amber-200",
+  generating: "bg-blue-50 text-blue-500 border-blue-200",
+  review: "bg-purple-50 text-purple-500 border-purple-200",
+  complete: "bg-green-50 text-green-500 border-green-200",
+  primary: "bg-blue-600 text-white border-blue-600",
+};
+
+export default function Badge({ children, variant = "default", className }: BadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
-        {
-          "bg-[var(--primary)] text-[var(--primary-foreground)]": variant === "default",
-          "bg-green-100 text-green-700": variant === "success",
-          "bg-yellow-100 text-yellow-700": variant === "warning",
-          "bg-red-100 text-red-700": variant === "destructive",
-          "border border-[var(--border)] text-[var(--foreground)]": variant === "outline",
-        },
+        "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border whitespace-nowrap",
+        variantClasses[variant] || variantClasses.default,
         className
       )}
-      {...props}
-    />
+    >
+      {children}
+    </span>
   );
 }
