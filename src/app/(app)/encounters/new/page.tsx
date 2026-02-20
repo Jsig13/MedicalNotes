@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 import { useProvider } from "@/lib/provider-context";
 import Card, { CardHeader, CardContent } from "@/components/ui/Card";
@@ -12,15 +12,16 @@ import Textarea from "@/components/ui/Textarea";
 import type { Template } from "@/types";
 import { ArrowLeft } from "lucide-react";
 
-export default function NewEncounterPage() {
+function NewEncounterForm() {
   const { provider } = useProvider();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const supabase = createClient();
 
   const [templates, setTemplates] = useState<Template[]>([]);
-  const [patientName, setPatientName] = useState("");
-  const [patientId, setPatientId] = useState("");
-  const [chiefComplaint, setChiefComplaint] = useState("");
+  const [patientName, setPatientName] = useState(searchParams.get("name") || "");
+  const [patientId, setPatientId] = useState(searchParams.get("mrn") || "");
+  const [chiefComplaint, setChiefComplaint] = useState(searchParams.get("cc") || "");
   const [templateId, setTemplateId] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -157,5 +158,13 @@ export default function NewEncounterPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function NewEncounterPage() {
+  return (
+    <Suspense>
+      <NewEncounterForm />
+    </Suspense>
   );
 }

@@ -11,6 +11,7 @@ import Input from "@/components/ui/Input";
 import Select from "@/components/ui/Select";
 import { statusConfig, fmtDateTime } from "@/lib/utils";
 import type { Encounter } from "@/types";
+import PatientSearch from "@/components/patients/PatientSearch";
 import { Plus, Stethoscope, Search } from "lucide-react";
 
 export default function EncountersPage() {
@@ -56,6 +57,23 @@ export default function EncountersPage() {
           <Plus className="w-4 h-4" /> New Encounter
         </Button>
       </div>
+
+      {/* Patient Search */}
+      <PatientSearch
+        onSelectPatient={(patient) => {
+          const params = new URLSearchParams();
+          params.set("name", patient.patient_name);
+          if (patient.patient_id) params.set("mrn", patient.patient_id);
+          router.push(`/patients?${params.toString()}`);
+        }}
+        onCreateNew={(data) => {
+          const params = new URLSearchParams();
+          params.set("name", data.name);
+          if (data.mrn) params.set("mrn", data.mrn);
+          if (data.chiefComplaint) params.set("cc", data.chiefComplaint);
+          router.push(`/encounters/new?${params.toString()}`);
+        }}
+      />
 
       {/* Filters */}
       <div className="flex gap-4">

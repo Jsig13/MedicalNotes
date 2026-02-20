@@ -11,10 +11,12 @@ import {
   Settings,
   Mic,
   LogOut,
+  User,
 } from "lucide-react";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/patients", label: "Patients", icon: User },
   { href: "/encounters", label: "Encounters", icon: Stethoscope },
   { href: "/templates", label: "Templates", icon: FileText },
   { href: "/settings", label: "Settings", icon: Settings },
@@ -49,6 +51,7 @@ function Sidebar() {
           const isActive =
             pathname === item.href ||
             (item.href === "/encounters" && pathname.startsWith("/encounters")) ||
+            (item.href === "/patients" && pathname.startsWith("/patients")) ||
             (item.href === "/templates" && pathname.startsWith("/templates"));
           return (
             <Link
