@@ -1,27 +1,20 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ConvexClientProvider } from "@/lib/convex";
-import { Navigation } from "@/components/Navigation";
 
 export const metadata: Metadata = {
-  title: "MedScribe - AI Medical Notes",
-  description: "HIPAA-compliant AI medical scribe with voice dictation and automatic note generation",
+  title: "MedScribe — AI Medical Notes",
+  description: "AI-powered medical documentation with voice recording, live transcription, and intelligent note generation.",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
-      <body>
-        <ConvexClientProvider>
-          <div className="flex min-h-screen">
-            <Navigation />
-            <main className="flex-1 ml-64 p-8">{children}</main>
-          </div>
-        </ConvexClientProvider>
+      <body className="bg-slate-50 text-slate-900 antialiased">
+        {children}
       </body>
     </html>
   );
